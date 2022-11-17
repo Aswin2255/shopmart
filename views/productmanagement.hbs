@@ -1,0 +1,341 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<body>
+
+
+
+
+  <main id="main" class="main">
+
+
+    <div class="pagetitle">
+      <h1>Productmanagement</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+          <li class="breadcrumb-item active">product</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="pagetitle">
+      <a href="/admin/addproduct" <button type="button" style="background-color: green; color: white;"
+        class="btn btn-sucess btn-lg btn-block">Add product</button></a>
+
+
+    </div>
+    <div class="nav nav-tabs  nav-fill  mb-4">
+      <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">All products</a>
+      <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Apply offers</a>
+
+    </div>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="tab-pane-1">
+        <div class="container overflow-auto bg-white">
+          <table id="dtBasicExample" class="table  table-bordered table-sm p-5" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th class="th-sm" style="color: black;">Sl.no
+
+                </th>
+                <th class="th-sm" style="color: black;">Product
+
+                </th>
+                <th class="th-sm" style="color: black;">Price
+
+                </th>
+                <th class="th-sm" style="color: black;">catagory
+
+                </th>
+                <th class="th-sm" style="color: black;">Discription
+
+                </th>
+                <th class="th-sm" style="color: black;">Offer price
+
+                </th>
+                <th class="th-sm" style="color: black;">Quantity
+
+                </th>
+
+                <th class="th-sm" style="color: black;">Image
+
+                </th>
+                <th class="th-sm" style="color: black;">Edit
+
+                </th>
+                <th class="th-sm" style="color: black;">Delete
+
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each product}}
+              <tr>
+                <th></th>
+                <th scope="row">{{this.name}}</th>
+
+                <td><a href="#" class="text-primary">{{this.price}}</a></td>
+                <td><a href="#" class="text-primary">{{this.catg}}</a></td>
+                <td><a href="#" class="text-primary">{{this.discription}}</a></td>
+                <td><a href="#" class="text-primary">{{this.ofprice}}</a></td>
+                <td><a href="#" class="text-primary">{{this.qnty}}</a></td>
+                <td><img style="width: 50px;height:50px;" src="/productimage/{{this.img.[0]}}"></td>
+
+
+                <td><a href="/admin/productmanage/edit/{{this._id}}"><i style="color: black;"
+                      class="fa-solid fa-pen"></i></a></td>
+
+                <td class="align-middle"><button class="btn btn-sm " onclick="remove('{{this._id}}')"><i
+                      class="fa-sharp fa-solid fa-trash"></i></button></td>
+
+
+              </tr>
+              {{/each}}
+
+
+            </tbody>
+
+          </table>
+
+
+        </div>
+      </div>
+      <div class="tab-pane fade show " id="tab-pane-2">
+        <div class="container overflow-auto bg-white">
+          <table id="dtBasicExample1" class="table  table-bordered table-sm p-5" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th class="th-sm" style="color: black;">Sl.no
+
+                </th>
+                <th class="th-sm" style="color: black;">Product
+
+                </th>
+                <th class="th-sm" style="color: black;">Price
+
+                </th>
+                <th class="th-sm" style="color: black;">catagory
+
+                </th>
+
+                <th class="th-sm" style="color: black;">Ofrprice
+
+                </th>
+                <th class="th-sm" style="color: black;">product offer
+
+                </th>
+                <th class="th-sm" style="color: black;">Offer %
+
+                </th>
+
+                <th class="th-sm" style="color: black;">Apply ofers
+
+                </th>
+
+                <th class="th-sm" style="color: black;">Remove
+
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each product}}
+              <tr>
+                <th></th>
+                <th scope="row">{{this.name}}</th>
+
+                <td><a href="#" class="text-primary">{{this.price}}</a></td>
+                <td><a href="#" class="text-primary">{{this.catg}}</a></td>
+                <td><a href="#" class="text-primary">{{this.ofprice}}</a></td>
+                {{#if proofer}}
+                <td><a href="#" class="text-success">Applied</a></td>
+                {{else}}
+                <td><a href="#" class="text-danger">Not applied</a></td>
+                {{/if}}
+                <td><a href="#" class="text-primary">{{this.offerper}}%</a></td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#exampleModal{{this._id}}">
+                    Apply
+                  </button></td>
+                <div class="modal fade" id="exampleModal{{this._id}}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                  <div class="modal-dialog" role="form">
+                    <div class="modal-content">
+                      <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Discount<i class="fa-solid fa-percent p-2"></i>
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body mx-3">
+                        <div class="md-form ">
+                          <form onsubmit="return sub('{{this._id}}')">
+                            <input type="number" id="d{{this._id}}" name="discount of {{this._id}}"
+                              class="form-control validate" placeholder="Enter rate in percentage">
+                            <span id="er{{this._id}}" style="color: red;"></span>
+                        </div>
+
+
+                      </div>
+                      <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit">Apply</button>
+                      </div>
+                      </form>
+
+
+                    </div>
+                  </div>
+                </div>
+                {{#if proofer}}
+                <td><a href="/admin/delofer/{{this._id}}"><i style="color: black;" class="fa-sharp fa-solid fa-trash"
+                      onclick="return confirm('are you sure to remove product offer for{{this.name}}')"></i></a></td>
+                {{else}}
+                <td></td>
+                {{/if}}
+              </tr>
+              {{/each}}
+
+
+            </tbody>
+
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        var t = $('#dtBasicExample').DataTable({
+          "columnDefs": [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+          }],
+          "order": [[1, 'asc']]
+        });
+
+        t.on('order.dt search.dt', function () {
+          t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+          });
+        }).draw();
+
+        var t = $('#dtBasicExample1').DataTable({
+          "columnDefs": [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+          }],
+          "order": [[1, 'asc']]
+        });
+
+        t.on('order.dt search.dt', function () {
+          t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+          });
+        }).draw();
+      });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+  </main><!-- End #main -->
+
+
+
+</body>
+<script>
+
+  function sub(id) {
+    let er = document.getElementById('er' + id)
+    let discount = document.getElementById('d' + id).value
+    if (parseInt(discount) < 10 || parseInt(discount) > 90 || discount == "") {
+      er.innerHTML = "only value 10-90 allowed"
+      return false
+      er.innerHTML = ""
+    }
+    else {
+
+      $.ajax({
+        url: '/admin/proofer',
+        method: 'post',
+        data: {
+          proid: id,
+          ofer: discount
+        },
+        success :(response)=>{
+          window.location.reload()
+        }
+        
+      })
+
+      return true
+    }
+  }
+  function remove(id) {
+
+    swal({
+      title: "Are you sure to remove " + name,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          location.href = "/admin/productmanage/delete/" + id
+
+        }
+      });
+  }
+
+</script>
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+
+
+</body>
+<script>
+</script>
+<!-- Optional JavaScript; choose one of the two! -->
+
+
+<!-- Template Main JS File -->
+<script src="/stylesheets/assets/js/main.js"></script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+  integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+  integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

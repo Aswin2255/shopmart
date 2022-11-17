@@ -1,0 +1,518 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Sales report</h1>
+
+    </div>
+
+    <div class="nav nav-tabs  nav-fill  mb-4">
+        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Daily</a>
+        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Monthly</a>
+        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Yearly</a>
+
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="tab-pane-1">
+            <div class="container overflow-auto bg-white">
+                <div class="container">
+                    <div class="row mb-4">
+                        <form>
+                            <label>from</label>
+                            <input type="date" id="start" name="from">
+                            <label>To</label>
+                            <input type="date" id="end" name="to">
+                            <button type="button" onclick="return order()">search</button>
+                        </form>
+
+                    </div>
+                </div>
+                <table id="dtBasicExample1" class="table  table-bordered table-sm p-5" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="th-sm" scope="col">Date</th>
+                            <th class="th-sm" scope="col">Delivered products</th>
+                            <th class="th-sm" scope="col">Total sales amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each data}}
+                        <tr>
+                            <td></td>
+                            <td class="tm-product-name">{{this._id.day}}/{{this._id.month}}/{{this._id.year}}</td>
+                            <td class="tm-product-name">{{this.products}}</td>
+                            <td class="tm-product-name">{{this.revenue}}</td>
+
+                        </tr>
+                        {{/each}}
+
+
+                    </tbody>
+
+                </table>
+                <button class="btn btn-outline-success" onclick="dailyReportPDF()"><i class="bi bi-download"></i>
+                    Download Pdf</button>
+                <button class="btn btn-outline-success" id="e" onclick="dailyData()"><i class="bi bi-download"></i>
+                    Download exel</button>
+
+
+            </div>
+        </div>
+        <div class="tab-pane fade show " id="tab-pane-2">
+            <div class="container overflow-auto bg-white">
+
+                <table id="dtBasicExample" class="table  table-bordered table-sm p-5" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th scope="col">Month</th>
+                            <th scope="col">Delivered products</th>
+                            <th scope="col">Total Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each monthly}}
+
+                        <tr>
+                            <td></td>
+
+                            <td class="tm-product-name">{{this.month}}</td>
+                            <td class="tm-product-name">{{this.products}}</td>
+                            <td class="tm-product-name">{{this.revenue}}</td>
+
+                        </tr>
+
+                        {{/each}}
+
+                    </tbody>
+
+                </table>
+                <button class="btn btn-outline-success" onclick="monthlyReportPDF()"><i class="bi bi-download"></i>
+                    Download Pdf</button>
+                <button class="btn btn-outline-success" onclick="monthlyData()"><i class="bi bi-download"></i>
+                    Download exel</button>
+
+
+            </div>
+        </div>
+        <div class="tab-pane fade show " id="tab-pane-3">
+            <div class="container overflow-auto bg-white">
+
+                <table id="dtBasicExample2" class="table  table-bordered table-sm p-5" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Delivered products</th>
+                            <th scope="col">Total Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each yearly}}
+
+                        <tr>
+                            <td></td>
+
+                            <td class="tm-product-name">{{this._id}}</td>
+                            <td class="tm-product-name">{{this.products}}</td>
+                            <td class="tm-product-name">{{this.revenue}}</td>
+
+                        </tr>
+
+                        {{/each}}
+
+                    </tbody>
+
+                </table>
+                <button class="btn btn-outline-success" onclick="yearlyReportPDF()"><i class="bi bi-download"></i>
+                    Download Pdf</button>
+                <button class="btn btn-outline-success" onclick="yearlyData()"><i class="bi bi-download"></i>
+                    Download exel</button>
+
+
+            </div>
+        </div>
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+        <script type="text/javascript">
+
+            function dailyReportPDF() {
+                var doc = new jsPDF('p', 'pt', 'letter');
+                var htmlstring = '';
+                var tempVarToCheckPageHeight = 0;
+                var pageHeight = 0;
+                pageHeight = doc.internal.pageSize.height;
+                specialElementHandlers = {
+                    // element with id of "bypass" - jQuery style selector  
+                    '#bypassme': function (element, renderer) {
+                        // true = "handled elsewhere, bypass text extraction"  
+                        return true
+                    }
+                };
+                margins = {
+                    top: 150,
+                    bottom: 60,
+                    left: 40,
+                    right: 40,
+                    width: 600
+                };
+                var y = 20;
+                doc.setLineWidth(2);
+                doc.text(200, y = y + 30, "Daily Sales Report");
+                doc.autoTable({
+                    html: '#dtBasicExample1',
+                    startY: 70,
+                    theme: 'grid',
+                    columnStyles: {
+                        0: {
+                            cellWidth: 180,
+                        },
+                        1: {
+                            cellWidth: 80,
+                        },
+                        2: {
+                            cellWidth: 80,
+                        },
+                {{!-- 3: {
+                    cellWidth: 80,
+                } --}}
+            },
+            styles: {
+                minCellHeight: 40
+            }
+        })
+            doc.save('sales-daily-report.pdf');
+    }
+
+
+            function monthlyReportPDF() {
+                var doc = new jsPDF('p', 'pt', 'letter');
+                var htmlstring = '';
+                var tempVarToCheckPageHeight = 0;
+                var pageHeight = 0;
+                pageHeight = doc.internal.pageSize.height;
+                specialElementHandlers = {
+                    // element with id of "bypass" - jQuery style selector  
+                    '#bypassme': function (element, renderer) {
+                        // true = "handled elsewhere, bypass text extraction"  
+                        return true
+                    }
+                };
+                margins = {
+                    top: 150,
+                    bottom: 60,
+                    left: 40,
+                    right: 40,
+                    width: 600
+                };
+                var y = 20;
+                doc.setLineWidth(2);
+                doc.text(200, y = y + 30, "Monthly Sales Report");
+                doc.autoTable({
+                    html: '#dtBasicExample',
+                    startY: 70,
+                    theme: 'grid',
+                    columnStyles: {
+                        0: {
+                            cellWidth: 180,
+                        },
+                        1: {
+                            cellWidth: 80,
+                        },
+                        2: {
+                            cellWidth: 80,
+                        },
+                {{!-- 3: {
+                    cellWidth: 80,
+                } --}}
+            },
+            styles: {
+                minCellHeight: 40
+            }
+        })
+            doc.save('sales-monthly-report.pdf');
+    }
+
+
+            function yearlyReportPDF() {
+                var doc = new jsPDF('p', 'pt', 'letter');
+                var htmlstring = '';
+                var tempVarToCheckPageHeight = 0;
+                var pageHeight = 0;
+                pageHeight = doc.internal.pageSize.height;
+                specialElementHandlers = {
+                    // element with id of "bypass" - jQuery style selector  
+                    '#bypassme': function (element, renderer) {
+                        // true = "handled elsewhere, bypass text extraction"  
+                        return true
+                    }
+                };
+                margins = {
+                    top: 150,
+                    bottom: 60,
+                    left: 40,
+                    right: 40,
+                    width: 600
+                };
+                var y = 20;
+                doc.setLineWidth(2);
+                doc.text(200, y = y + 30, "Yearly Sales Report");
+                doc.autoTable({
+                    html: '#dtBasicExample2',
+                    startY: 70,
+                    theme: 'grid',
+                    columnStyles: {
+                        0: {
+                            cellWidth: 180,
+                        },
+                        1: {
+                            cellWidth: 80,
+                        },
+                        2: {
+                            cellWidth: 80,
+                        },
+                {{!-- 3: {
+                    cellWidth: 80,
+                } --}}
+            },
+            styles: {
+                minCellHeight: 40
+            }
+        })
+            doc.save('sales-yearly-report.pdf');
+    }
+
+
+
+            function dailyData() {
+                const data = `
+                ,date,Total,no.of Order
+            {{#each data}}
+                ,{{_id.day}} {{_id.month}} {{_id.year}},{{revenue}},{{products}}
+            {{/each}}`
+
+                const blob = new Blob([data], { type: 'octet-stream' })
+
+                const href = URL.createObjectURL(blob)
+
+                const a = Object.assign(document.createElement('a'), {
+                    href,
+                    style: 'display:none',
+                    download: 'data.csv'
+                })
+
+                document.body.appendChild(a)
+
+                a.click()
+
+                URL.revokeObjectURL(href)
+
+                a.remove()
+            }
+
+            function monthlyData() {
+                const data = `
+            ,month, Revenue,no of products
+        {{#each monthly}}
+            ,{{month}},{{revenue}},{{products}}
+        {{/each}}`
+
+                const blob = new Blob([data], { type: 'octet-stream' })
+
+                const href = URL.createObjectURL(blob)
+
+                const a = Object.assign(document.createElement('a'), {
+                    href,
+                    style: 'display:none',
+                    download: 'data.csv'
+                })
+
+                document.body.appendChild(a)
+
+                a.click()
+
+                URL.revokeObjectURL(href)
+
+                a.remove()
+            }
+
+            function yearlyData() {
+                const data = `
+            ,year, Revenue,no of products
+        {{#each yearly}}
+            ,{{_id}},{{revenue}},{{products}}
+        {{/each}}`
+
+                const blob = new Blob([data], { type: 'octet-stream' })
+
+                const href = URL.createObjectURL(blob)
+
+                const a = Object.assign(document.createElement('a'), {
+                    href,
+                    style: 'display:none',
+                    download: 'data.csv'
+                })
+
+                document.body.appendChild(a)
+
+                a.click()
+
+                URL.revokeObjectURL(href)
+
+                a.remove()
+            }
+
+        </script>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            var t = $('#dtBasicExample').DataTable({
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                "order": [[1, 'asc']]
+            });
+
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+            var t = $('#dtBasicExample1').DataTable({
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                "order": [[1, 'asc']]
+            });
+
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+            var t = $('#dtBasicExample2').DataTable({
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                "order": [[1, 'asc']]
+            });
+            t.on('order.dt search.dt', function () {
+                t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+
+</main><!-- End #main -->
+
+
+
+
+<script>
+
+    function order() {
+        let start = document.getElementById('start').value
+        let end = document.getElementById('end').value
+        let result = document.getElementById('dtBasicExample1')
+        console.log(start, end)
+        if (start == "" || end == "") {
+            swal("need both from and to date!", "", "error")
+            return false
+        }
+        else if ((Date.parse(end) <= Date.parse(start))) {
+            swal("End date should be greater than Start date!", "", "error");
+            return false
+        }
+        else {
+            $.ajax({
+                url: '/admin/orderfilter',
+                data: {
+                    start: start,
+                    end: end
+                },
+                method: 'post',
+
+                success: (data) => {
+                    console.log('here')
+
+                    result.innerHTML = data
+                    document.getElementById('e').classList.add('d-none')
+
+                }
+            })
+
+
+
+            return true
+
+        }
+
+
+    }
+
+</script>
+
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+
+
+</body>
+<script>
+</script>
+<!-- Optional JavaScript; choose one of the two! -->
+
+
+<!-- Template Main JS File -->
+<script src="/stylesheets/assets/js/main.js"></script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>

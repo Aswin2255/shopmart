@@ -1,0 +1,288 @@
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card" style="border-radius: 10px;">
+       
+          <div class="card-body p-4">
+         <!--   <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
+              <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
+            </div> ---->
+            {{#each product}}
+            <div class="card shadow-0 border mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="/productimage/{{this.orderproducts.img.[0]}}"
+                      class="img-fluid" alt="Phone">
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-dark mb-0">{{this.orderproducts.name}}</p>
+                  </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-dark mb-0">{{this.orderproducts.ofprice}}</p>
+                  </div>
+                
+                
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0 small"></p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-dark mb-0 small">Qty: {{this.quantity}}</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-dark mb-0 small"  >RS {{this.total}}</p>
+                    <input type="" hidden  id="total" value="{{this.total}}">
+                     <input type="" hidden id="disc" value="{{this.discper}}">
+                     <input type="" hidden id="pay" value="{{this.payment}}">
+                    
+                  </div>
+                </div>
+                <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                   <div class="row d-flex align-items-center">
+                  <div class="col-md-2">
+                    <p class="text-muted mb-0 small">status</p>
+                  </div>
+                  <div class="col-md-10">
+                  
+                   
+                      {{#if this.status}}
+                      {{#if this.payed}}
+                      {{#if this.del}}
+                          {{#if this.ret}}
+                            <p class="text-muted mt-1 mb-0 small ms-xl-5">{{this.status}}</p>
+                           
+                          {{else}}
+
+                        <div class="d-flex justify-content-around mb-1">
+                      <p class="text-muted mt-1 mb-0 small ms-xl-5">{{this.status}}</p>
+                      <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" style="background-color: red;color: white;" data-toggle="modal" data-target="#exampleModal">
+  Return
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{this.orderproducts.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <form  id="returnp">
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Reason</label>
+             <input type="" hidden   value="{{this.total}}" name="total">
+             <input type="" hidden  value="{{this.discper}}" name="disc">
+            <input type="" value="{{this.item}}" name="proid" hidden>
+            <input type="" value="{{this._id}}" name="orderid" hidden>
+            <input type="text" value="Return" hidden name="status">
+            <textarea class="form-control" id="reason" name="res"></textarea>
+            <span style="color: red;" id="er"></span>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+                       
+                             
+                    
+                      
+                       
+                      
+                    </div>
+                         {{/if}}
+                      {{else}}
+                       <div class="d-flex justify-content-around mb-1">
+                      <p class="text-muted mt-1 mb-0 small ms-xl-5">{{this.status}}</p>
+                    
+                        
+                      <button type="button" onclick="status('cancel','{{this.item}}','{{this._id}}')"  class="btn btn-primary" style="background-color: red;color: white; ">CANCEL</button>
+                    </div>
+                    {{/if}}
+                    {{else}}
+                     <p class="text-muted mt-1 mb-0 small ms-xl-5">order is not placed...</p>
+                     {{/if}}
+                     {{else}}
+                     {{#if this.ret}}
+                      <p class="text-muted mt-1 mb-0 small ms-xl-5">product returned</p>
+                     {{else}}
+                     <div class="d-flex justify-content-around mb-1">
+                      <p class="text-muted mt-1 mb-0 small ms-xl-5">order is canceled</p>
+                    </div>
+                    {{/if}}
+                      {{/if}}
+                  </div>
+                </div>  
+            
+            
+              </div>
+            </div>
+          
+               
+                <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                  {{/each}}
+             
+
+          
+
+         
+
+           
+          </div>
+         
+          <div class="card-footer border-0 px-4 py-5  justify-content-center " >
+         
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  function status(status,proid,ordid){
+      swal({
+  title: "Are you sure to cancel the order ",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+   let total = document.getElementById('total').value
+      let disc = document.getElementById('disc').value
+      let payment = document.getElementById('pay').value
+         $.ajax({
+          url:'/changeorder',
+         data:{
+            status:status,
+            proid:proid,
+            ordid:ordid,
+            total:total,
+            disc:disc,
+            pay:payment
+         },
+         method:'post',
+         success:(response)=>{
+           window.location.reload();
+         }
+      })
+  
+  } 
+});
+    
+    }
+   let form = document.getElementById('returnp')
+   let res = document.getElementById('reason')
+   form.addEventListener('submit',(e)=>{
+    
+    console.log(res.value)
+    if(res.value){
+    
+    $.ajax({
+       url:'/return',
+       method:'post',
+       data:$('#returnp').serialize(),
+       success:(response)=>{
+        location.reload()
+       }
+
+    })
+    }
+    else{
+      e.preventDefault()
+      document.getElementById('er').innerHTML = 'reason is required'
+    }
+   })
+  </script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  

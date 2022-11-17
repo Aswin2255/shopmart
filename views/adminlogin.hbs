@@ -1,0 +1,135 @@
+
+<body>
+
+  <main>
+    <div class="container">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="d-flex justify-content-center py-4">
+                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                  <img src="assets/img/logo.png" alt="">
+                  <span class="d-none d-lg-block">NiceAdmin</span>
+                </a>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                    <p class="text-center small">Enter your username & password to login</p>
+                  </div>
+
+                  <form  action="/admin/login" class="row g-3" method="post"  >
+
+                    <div class="col-12">
+                      
+                      <div class="input-group has-validation">
+                        
+                       
+                        <input type="text" id="username" class="form-control" placeholder="enter username" name="name" onkeyup="validatename()"/>
+                      
+                      </div>
+                      <span id="username1"></span>
+                    </div>
+
+                    <div class="col-12">
+                      <input type="password" id="userpass" class="form-control" name="pass"   placeholder=" enter your password" onkeyup="validatepass()"/>
+                      <span id="userpass1"></span>
+                    </div>
+                    {{#if loginer1}}
+                    <label class="text-danger" >invalid username or password</label>
+                    {{/if}}
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit" onclick="return validateform()" >Login</button>
+                    </div>
+                  
+                  </form>
+
+                </div>
+              </div>
+
+            
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main><!-- End #main -->
+
+ <script>
+   function validatename(){
+      let username = document.getElementById('username').value
+      let nameerror = document.getElementById('username1')
+      let regex = /^[a-zA-Z ]{2,30}$/;
+      console.log(regex.test(username))
+    
+     
+       if(regex.test(username)==false||username==""){
+       
+        nameerror.style.color = "red"
+        nameerror.innerHTML = "enter valid name"
+        return false
+      }
+      else if(username.length<5||username.length>15){
+        nameerror.style.color = "red"
+        nameerror.innerHTML="minimum 5 maximum 15 charcaters"
+        return false
+        
+      }
+      else{
+        nameerror.style.color = "green"
+        nameerror.innerHTML = ""
+        return true
+       
+       
+      }
+    }
+    function validatepass(){
+      let userpass = document.getElementById('userpass').value
+      let passerror = document.getElementById('userpass1')
+      if(userpass.length<4){
+        passerror.style.color ='red'
+        passerror.innerHTML = "enter min 4 character"
+        return false
+      }
+      else{
+        passerror.innerHTML = ""
+        return true
+      }
+    }
+    function validateform(){
+      if(validatename()&&validatepass()){
+        return true
+      }
+      else{
+        validatename()
+        validatepass()
+        return false   
+           }
+    }
+ </script>
+  
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.min.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+

@@ -1,0 +1,150 @@
+  <div class="container">
+     <div class="row mb-4">
+                 <span>User edit</span> 
+                </div>
+  <form method="post" action="/useredit/{{userdata._id}}" >
+  <div class="form-row">
+    
+                    <div class="form-group col-md-12">
+                        <label for="firstname">Username</label>
+                        <input type="text" id="username" class="form-control" name="name" value="{{userdata.name}}"    placeholder="Enter your name" onkeyup="validatename()" />
+                        <span id="username1" </span>
+                    </div>
+                  
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="useremail" name="email" value="{{userdata.email}}"  placeholder="Enter your email" onkeyup="validatemail()"  />
+                     <span id="useremail1"></span>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress5">phonenumber</label>
+                    <input type="text" class="form-control" id="userphone" name="phone" value="{{userdata.phone}}"  placeholder="enter your phonenumber" onkeyup="validatephone()"  />
+                    <span id="userphone1"></span>
+                </div>
+                <input type="text" value="{{userdata._id}}" name="_id" hidden>
+                   <div class="form-group">
+                    <label for="inputEmail4">Enter the current password</label>
+                    <input type="pass" class="form-control" id="userpass" name="pass"   placeholder="enter current password" onkeyup="validatepass()" />
+                    <span id="userpass1"></span>
+                    {{#if er}}
+                      <label style="color: red;">invalid password</label>
+                      {{/if}}
+                      {{#if er1}}
+                       <label style="color: red;">user already exists</label>
+                       {{/if}}
+                </div>
+               
+                 
+               
+                <button type="submit" onclick="return validateform()" class="btn btn-primary">Save Change</button>
+                <br>
+               
+              
+            </form>
+            </div>
+            <script>
+    
+             function validatename(){
+      let username = document.getElementById('username').value
+      let nameerror = document.getElementById('username1')
+      let regex = /^[a-zA-Z ]{2,30}$/;
+      console.log(regex.test(username))
+    
+     
+       if(regex.test(username)==false||username==""){
+       
+        nameerror.style.color = "red"
+        nameerror.innerHTML = "enter valid name"
+        return false
+      }
+      else if(username.length<5||username.length>15){
+        nameerror.style.color = "red"
+        nameerror.innerHTML="minimum 5 maximum 15 charcaters"
+        return false
+        
+      }
+      else{
+        nameerror.style.color = "green"
+        nameerror.innerHTML = ""
+        return true
+       
+       
+      }
+    }
+    function validatemail(){ 
+    
+      var format = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      let useremail = document.getElementById('useremail').value
+      let emailerror = document.getElementById('useremail1')
+      console.log(format.test(useremail))
+        if(useremail==""){
+        emailerror.style.color = "red"
+        emailerror.innerHTML = "field is required"
+        return false
+      }
+      else if(format.test(useremail)==false){
+        emailerror.style.color = 'red'
+        emailerror.innerHTML = "enter valid email"
+        return false
+      }
+     
+      else
+      {
+        emailerror.innerHTML = ""
+        return true
+      }
+    }
+    function validatephone(){
+      var regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+      let userphone = document.getElementById('userphone').value
+      let phoneerror = document.getElementById('userphone1')
+      if(regex.test(userphone)==false){
+        phoneerror.style.color = 'red'
+        phoneerror.innerHTML = "enter valid phone number"
+        return false
+      }
+      else{
+        phoneerror.innerHTML = ""
+        return true
+      }
+
+    }
+    function validatepass(){
+      let userpass = document.getElementById('userpass').value
+      let passerror = document.getElementById('userpass1')
+      if(userpass.length<4){
+        passerror.style.color ='red'
+        passerror.innerHTML = "enter min 4 character"
+        return false
+      }
+      else{
+        passerror.innerHTML = ""
+        return true
+      }
+    }
+    function validateform(){
+      if(validatemail()&&validatename()&&validatepass()&&validatephone()&&validatename()){
+        return true
+      }
+      else{
+        validatemail()
+        validatename()
+        validatepass()
+        validatephone()
+        return false   
+           }
+    }
+    
+</script>       <!-- Optional JavaScript;
+             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>

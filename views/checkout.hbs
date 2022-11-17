@@ -1,0 +1,403 @@
+<link rel="stylesheet" href="stylesheets/check.css">
+<div class="container">
+    <div class=" text-center">
+         <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                    <span class="breadcrumb-item active">Checkout</span>
+                </nav>
+            </div>
+        </div>
+        <div class="mb-3">
+                       {{#if limit}}
+               <label style="color: red;" >address limit exceeds</label>
+               {{else if er}}
+               <label style="color: red;">Need minimum one adress</label>
+               {{/if}}
+                      <a href="/addadress"<button  type="button" class="btn btn-block btn-light  font-weight-bold py-3" style="color: green;" >Add new Billing Address </button></a>
+                    
+                </div>
+    </div>
+    <div class="row">                                                                            
+        <div class="col-md-4 order-md-2 mb-4">
+            
+            <ul class="list-group mb-3 sticky-top">
+                {{#each prod}}
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">{{this.name}}</h6>
+                        <small class="text-muted">Quantity:{{this.qnty}}</small>
+                    </div>
+                    <span class="text-muted">RS.{{this.total}}</span>
+                </li>
+                {{/each}}
+
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <h6 class="my-0">Promo code Discount</h6>
+                         <span class="text-success" id="red"></span>
+                        
+                    </div>
+                    <span class="text-success" id="di"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (INR)</span>
+                    <strong id="tot">RS.{{total}}</strong>
+                </li>
+            </ul>
+            
+                <div class="input-group " id="for">
+                    <input type="text" class="form-control" id="cpn" placeholder="Promo code">
+                    <div class="input-group-append">
+                         <button type="button" onclick="return coupon('{{total}}','{{user._id}}')" class="btn btn-primary">Apply Coupon</button>
+                         
+                    </div>
+                </div>
+            
+        </div>
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Billing address</h4>
+            <form class="needs-validation" id="checkout">
+                 <input type="" name="price"  value="{{total}}" hidden id="newprice">
+     <input type="" name="coup"  value= "0" hidden id="c" >
+     <input type="" name="reduce"  value= "0" hidden  id="reduce" >
+                <div class="grid">
+                    {{#each ad}}
+  <label class="card">
+      
+       
+    <input name="adress" class="radio" type="radio" hidden value="{{this._id}}" checked>
+     
+    <span class="plan-details">
+      <p class="plan-type">{{this.email}}<br>
+      {{this.phone}}<br>
+      {{this.add}}<br>
+      {{this.city}}<br>
+      {{this.state}}<br>
+      {{this.pin}}</p>
+    </span>
+    
+  </label>
+ 
+  <p><a href="/edit/add/{{this._id}}"   style="color: black;" >Edit</a>
+   <a onclick="remove('{{this._id}}')"  style="color: red;cursor: pointer;" >Remove</a></p>
+                                  
+  {{/each}}
+  <input type="text" name="userid" value="{{user._id}}" hidden >
+   
+ 
+  
+</div>
+                
+              
+                
+         
+                <h4 class="mb-3">Payment</h4>
+                <div class="bg-light p-30">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" value="COD" id="paypal" checked >
+                                <label class="custom-control-label" for="paypal">COD</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" value="razpay" id="directcheck">
+                                <label class="custom-control-label" for="directcheck">Razorpay</label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" value="paypal" id="banktransfer">
+                                <label class="custom-control-label" for="banktransfer">Paypal</label>
+                            </div>
+                        </div>
+                         <div class="form-group mb-4">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" value="Wallet" id="wallet">
+                                <label class="custom-control-label" for="wallet">Wallet</label>
+                            </div>
+                        </div>
+                        <button  type="submit"  class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
+                    </div>
+                <hr class="mb-4">
+                
+               
+            </form>
+        </div>
+    </div>
+    
+</div>
+  <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+                <p class="mb-4">feel free to contact in case of emergency...</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, Kerala, India</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>Shopmart@gmail.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+0484 2255</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-secondary mb-2" href="/"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-secondary mb-2" href="/cart"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-secondary mb-2" href="/setings"><i class="fa fa-angle-right mr-2"></i>Setings</a>                           
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                       
+                       
+                        <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
+                        <div class="d-flex">
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <script>
+   $('#checkout').submit((e)=>{
+    var pay = $("input[name=payment]").is(":checked");
+    var add = $("input[name=adress]").is(":checked");
+    if(add&&pay){
+        
+        
+        
+    
+
+  e.preventDefault()
+    $.ajax({
+        url:'/checkout',
+        method:'post',
+        data:$('#checkout').serialize(),
+       // datatype:'html',
+        success:function(response){
+            console.log(response)
+            if(response.cod||response.wal){
+                
+                
+                location.href = '/orderplace'
+            }
+            else if(response.raz){
+                console.log('razorpay1')
+               
+                razorpay(response)
+                
+            }
+            else if(response.paypal){
+                console.log('paypal reached')
+                for(i=0;i<response.links.length;i++){
+                    if(response.links[i].rel === 'approval_url'){
+                        location.href = response.links[i].href
+                    }
+
+                }
+            }
+            else{
+                  swal("not enough balance!","","error")
+            }
+        }
+    })
+    }
+    else{
+         swal("need both adress and payement option!","","error")
+        e.preventDefault()
+    }
+   })
+
+   function razorpay(order){
+    console.log('razorpay2')
+   var options = {
+  "key": "rzp_test_s4uIPvU0vTgwKU", // Enter the Key ID generated from the Dashboard
+  "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+  "currency": "INR",
+  "name": "SHOPMART",
+  "description": "Test Transaction",
+  "image": "https://example.com/your_logo",
+  "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+  "handler": function (response){
+ 
+    console.log(response)
+    
+     
+      verifypayment(response,order)
+  },
+  
+  "prefill": {
+      "name": "shopmart",
+      "email": "shop.mart@example.com",
+      "contact": "9999999999"
+  },
+  "notes": {
+      "address": "Razorpay Corporate Office"
+  },
+  "theme": {
+      "color": "#3399cc"
+  }
+};
+var rzp1 = new Razorpay(options)
+  rzp1.open();
+
+
+   }
+   function verifypayment(payment,order){
+    console.log('3')
+    $.ajax({
+       
+        url:'/verifypay',
+        data:{
+            payment,
+            order
+        },
+        method:'post',
+        success:(response)=>{
+            console.log('success reached')
+            if(response.status){
+            location.href = '/orderplace'
+            }
+            else{
+                alert('payment failed')
+            }
+        }
+    })
+   }
+    function coupon(total,id){
+        
+       
+        let cpn = document.getElementById('cpn').value //this is to get the coupoun value from input
+        let coupn = document.getElementById('c')     // hidden input field 
+        let discount = document.getElementById('di') //this is to display the dic per
+        let red = document.getElementById('red')    // this is to display the reduced proce
+        let reducedprice = document.getElementById('reduce') // hiden input field 
+        
+        
+        let newtot = document.getElementById('tot')
+        let nep = document.getElementById('newprice')
+        if(cpn===""){
+             swal("coupoun is empty!","","error")
+             return false
+             }
+             else{
+        $.ajax({
+        url:'/applycpn',
+        method:'post',
+        data:{
+          cpn:cpn,
+          total:total,
+          
+          user:id
+        },
+        success:(response)=>{
+            if(response.invalid){
+                 swal("coupoun is invalid!","","error")
+               
+            }
+            else if(response.expiry){
+                 swal("coupoun is already used!","","error")
+            }
+            else{
+                console.log(response)
+                let tot = response.total
+                let disco = response.discount+'%'
+                let reduce = '-'+response.reduce
+                let reduced = response.discount
+                newtot.innerHTML = tot
+                nep.value = tot
+                coupn.value = response.coupn
+                reducedprice.value = reduced
+                discount.innerHTML = disco
+                red.innerHTML = reduce
+                let v = document.getElementById('for')
+                v.classList.add('d-none')
+                  
+                
+            }
+
+        }
+        })
+        return false
+             }
+        
+       
+    }
+     function remove(id){
+     
+        swal({
+  title: "Are you sure to remove ",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+ location.href='/delete/add/'+id
+  
+  } 
+});
+    }
+</script>
+
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+   <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>--->
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

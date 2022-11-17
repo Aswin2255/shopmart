@@ -1,0 +1,247 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <body>
+    
+ <main id="main" class="main">
+
+
+    <div class="pagetitle">
+      <h1>catagorymanagement</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+          <li class="breadcrumb-item active">catagories</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="container">
+
+        <!-- Left side columns -->
+      
+            <div class="container">
+              <div class="card recent-sales  ">
+                 <div class="card-body">
+                  <h5 class="card-title">Add new catagory</h5>
+                 
+             
+             <form class="row g-3" method="post" action="/admin/addcatg" >
+                <div class="col-12">
+                  <input type="text" class="form-control" id="catg"  placeholder="Enter the catagory name" name="catg" >
+                  <span class="text-danger" id="er" ></span>
+                </div>
+                
+               <span id="nameer"></span>
+                 {{#if er}}
+                <span class="text-danger">catagory already exists</span>
+              
+                {{/if}}
+ 
+
+         <button type="submit" onclick="return valc()" class="btn btn-primary">Submit</button>
+       </form>
+                </div>
+
+              </div>
+            </div>
+
+              <div class="col-12">
+              <div class="card recent-sales  overflow-auto ">
+              
+
+               
+                <div class="card-body">
+                  <h5 class="card-title">Available catagories</h5>
+                </div>
+                        
+<table id="dtBasicExample" class="table  table-bordered table-sm p-5" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="th-sm" style="color: black;" >Catagory
+
+      </th>
+        <th class="th-sm" style="color: black;" >Offer
+
+      </th>
+      <th class="th-sm" style="color: black;" >Edit
+
+      </th>
+      <th class="th-sm" style="color: black;" >Apply Offer
+
+      </th>
+      <th class="th-sm" style="color: black;" >Remove offer
+
+      </th>
+      <th class="th-sm" style="color: black;" >Delete
+
+      </th>
+    
+       
+    </tr>
+  </thead>
+    <tbody>
+                         {{#each catagories}}
+                      
+                       <tr> 
+                         <td><a href="">{{this.catg}}</a></td>
+                          <td><a href="">{{this.catgoffer}}%</a></td>
+                        
+                          <td><a href="/admin/editcatg/{{this._id}}">
+         <i class="fa-solid fa-pen" style="color: black;" ></i>
+        </a></td>
+                         <td><button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal{{this._id}}">
+                          Apply
+                          </button></td>
+
+                         
+                          <div class="modal fade" id="exampleModal{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 
+  <div class="modal-dialog" role="form">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Discount<i class="fa-solid fa-percent p-2"></i></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        
+      <div class="modal-body mx-3">
+        <div class="md-form ">
+          <form onsubmit="return sub('{{this.catg}}')">
+          <input type="number" id="d{{this.catg}}" name="discount of {{this.catg}}"  class="form-control validate" placeholder="Enter rate in percentage">
+          <span id="er{{this.catg}}" style="color: red;" ></span>
+        </div>
+
+        
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="submit"  >Apply</button>
+      </div>
+      </form>
+      
+      
+    </div>
+  </div>
+</div>
+  <td><a href="/admin/delofr/{{this.catg}}"><i style="color: black;" class="fa-solid fa-ban" onclick="return confirm('are you wanted to remove offer!')" ></i></a></td>
+   <td><a href="/admin/delcatg/{{this._id}}"><i style="color: black;"class="fa-sharp fa-solid fa-trash" onclick="return confirm('are you sure to delete{{this.name}}')"></i></a></td>
+
+                          {{/each}}
+                        
+                      </tr>
+                   
+                     
+                     
+                    </tbody>
+ 
+</table>
+
+                    
+
+
+                </div>
+
+              </div>
+            
+
+
+            <!-- Top Selling -->
+            
+        
+       
+
+        <!-- Right side columns -->
+      
+    
+      </div>
+
+    </section>
+    <script>
+        $(document).ready(function () {
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+});
+
+    </script>
+   
+
+  </main><!-- End #main -->
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+  
+
+
+
+     </body>
+     <script>
+      
+    function sub(catg){
+      let er = document.getElementById('er'+catg)
+      let discount = document.getElementById('d'+catg).value
+      if(parseInt(discount)<10||parseInt(discount)>90||discount==""){
+        er.innerHTML = "only value 10-90 allowed"
+        return false
+        er.innerHTML = ""
+      }
+      else{
+     
+        $.ajax({
+        url:'catgofer',
+        method:'post',
+        data:{
+          catg:catg,
+          ofer:discount
+        }
+        })
+        
+     return true
+      }
+    }
+
+     
+      function valc(){
+      var catg = document.getElementById('catg').value
+      var er = document.getElementById('er')
+      if(catg==""){
+        er.innerHTML = "catg required"
+        return false
+      }
+      else{
+        return true
+      }
+      }
+    
+      
+   
+</script>
+     
+     
+ 
+        <!-- Optional JavaScript; choose one of the two! -->
+
+
+  <!-- Template Main JS File -->
+  <script src="/stylesheets/assets/js/main.js"></script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+ 
+</html>
+
+
+

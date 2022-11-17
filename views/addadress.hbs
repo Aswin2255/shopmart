@@ -1,0 +1,206 @@
+<div class="container">
+<div class=" mb-5" id="shipping-address  ">
+                     <form action="/addadress" class="overflow-auto"  method="post" >
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Shipping Address</span></h5>
+                    <div class="bg-light p-30  ">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>First Name</label>
+                                <input class="form-control" id="username" type="text" name="name"  placeholder="enter your name" onkeyup="validatename()" >
+                                <label id="username1"></label> 
+                            </div>
+                           
+                            <div class="col-md-6 form-group">
+                                <label>E-mail</label>
+                                <input class="form-control" type="text" id="useremail" name="email"  placeholder="enter your email" onkeyup="validatemail()"  >
+                                <label id="useremail1"></label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" id="userphone" name="phone"  placeholder="+91" onkeyup="validatephone()" >
+                                <label id="userphone1"></label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="">Address </label>
+                                <textarea class="form-control" id="a" name="add" rows="4"  cols="40" onkeyup="vaad()" required></textarea>
+                                         <label class="text-danger" id="add1"></label>
+                            </div>
+                              
+                         
+                            
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" id="city" name="city"   placeholder="New York" onkeyup="vc()">
+                                <label class="text-danger" id="city1"></label>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>State</label>
+                                <input class="form-control" type="text" id="state" name="state"  placeholder="New York" onkeyup="vs()" >
+                                <label class="text-danger" id="state1"></label> 
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>ZIP Code</label>
+                                <input class="form-control" type="number" id="pinno" name="pin"  placeholder="123" onkeyup="vp()">
+                                <label class="text-danger" id="pin1"></label>
+                            </div>
+                            <input type="text"  hidden name="user"  value="{{user._id}}"> 
+                        </div>
+                         <button type="submit" href="/addadress" onclick="return validateform()" class="btn-block btn-white" style="color: green;">Submit</button>
+                    </div>
+                    </div>
+
+     
+    </div>
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <script>
+      
+    
+    function validatename(){
+      let username = document.getElementById('username').value
+      let nameerror = document.getElementById('username1')
+      let regex = /^[a-zA-Z ]{2,30}$/;
+      console.log(regex.test(username))
+    
+     
+       if(regex.test(username)==false||username==""){
+       
+        nameerror.style.color = "red"
+        nameerror.innerHTML = "enter valid name"
+        return false
+      }
+      else if(username.length<5||username.length>15){
+        nameerror.style.color = "red"
+        nameerror.innerHTML="minimum 5 maximum 15 charcaters"
+        return false
+        
+      }
+      else{
+        nameerror.style.color = "green"
+        nameerror.innerHTML = ""
+        return true
+       
+       
+      }
+    }
+    function validatemail(){ 
+    
+      var format = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      let useremail = document.getElementById('useremail').value
+      let emailerror = document.getElementById('useremail1')
+      console.log(format.test(useremail))
+      if(format.test(useremail)==false){
+        emailerror.style.color = 'red'
+        emailerror.innerHTML = "enter valid email"
+        return false
+      }
+      else{
+        emailerror.innerHTML = ""
+        return true
+      }
+    }
+    function validatephone(){
+      var regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+      let userphone = document.getElementById('userphone').value
+      let phoneerror = document.getElementById('userphone1')
+      if(regex.test(userphone)==false){
+        phoneerror.style.color = 'red'
+        phoneerror.innerHTML = "enter valid phone number"
+        return false
+      }
+      else{
+        phoneerror.innerHTML = ""
+        return true
+      }
+
+    }
+
+    
+    function vp(){
+    
+    var p = document.getElementById('pinno').value
+    var p1 = document.getElementById('pin1')
+    if(p==""){
+      p1.innerHTML = "pin is required"
+      return false
+    
+    }
+    else{
+      return true
+    }
+    
+    }
+    function vs(){
+      var nr = /^\d+$/;
+      var s = document.getElementById('state').value
+      var s1 = document.getElementById('state1')
+      if(s==""){
+        s1.innerHTML = "state is required"
+        return false
+      }
+        else if(s.match(nr)){
+        s1.innerHTML = "enter valid state name"
+        return false
+      }
+      else{
+        return true
+    }
+    }
+    function vc(){
+       var nr = /^\d+$/;
+      var c = document.getElementById('city').value
+      var c1 = document.getElementById('city1')
+      console.log(c)
+      if(c==""){
+        c1.innerHTML="city is required"
+        return false
+      }
+      else if(c.match(nr)){
+        c1.innerHTML = "enter valid city name"
+        return false
+      }
+      else{
+        return true
+      }
+    }
+    
+   
+    function validateform(){
+      
+      if(validatemail()&&validatename()&&validatephone()&&vs()&&vp()&&vc()){
+        return true
+      }
+      else{
+        validatemail()
+        validatename()
+        validatephone()
+        vp()
+        vs()
+        vc()
+        return false   
+           }
+    }
+    
+</script>       <!-- Optional JavaScript; choose one of t
+    </script>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

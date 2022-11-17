@@ -1,0 +1,63 @@
+<div class="container overflow-auto bg-white">
+<table id="dtBasicExample" class="table  table-bordered table-sm" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="th-sm" style="color: black;" >Date
+
+      </th>
+      <th class="th-sm" style="color: black;" >Phone
+
+      </th>
+      <th class="th-sm" style="color: black;" >Address
+
+      </th>
+      <th class="th-sm" style="color: black;" >Amount
+
+      </th>
+      <th class="th-sm" style="color: black;" >payment
+
+      </th>
+    
+        <th class="th-sm" style="color: black;" >options
+
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each ord}}
+    <tr>
+      <td class="text-dark" >{{this.date}}</td>
+      <td class="text-dark">{{this.address.phone}}</td>
+      <td class="text-dark">{{this.address.add}}</td>
+      <td class="text-dark">{{this.amount}}</td>
+      <td class="text-dark">{{this.payment}}</td>
+      <td><a href="/orderdproducts/{{this._id}}" class="btn btn-success" style="height: 50px;" >view orders</a></td>
+      
+    </tr>
+    {{/each}}
+   
+  <tfoot>
+   
+  </tfoot>
+</table>
+</div>
+<script>
+    $(document).ready(function () {
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+});
+</script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>

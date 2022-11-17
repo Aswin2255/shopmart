@@ -1,0 +1,278 @@
+<!-- Breadcrumb Start -->
+<div class="container">
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="/">Home</a>
+                <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                <span class="breadcrumb-item active">Shop List</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<!-- Shop Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <!-- Shop Sidebar Start -->
+        <div class="col-lg-3 col-md-4">
+            <!-- Price Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by
+                    price</span></h5>
+            <div class="bg-light p-4 mb-30">
+                <form id="filter">
+                    <label class="custom-control custom-checkbox">
+                        <input type="radio" class="custom-control-input" value="0,1000000,{{catg}}" name="Prize"
+                            onchange="filt()">
+                        <div class="custom-control-label">All price
+                        </div>
+                    </label>
+                    <label class="custom-control custom-checkbox">
+                        <input type="radio" class="custom-control-input" value="0,100,{{catg}}" name="Prize"
+                            onchange="filt()">
+                        <div class="custom-control-label">price below 100
+                        </div>
+                    </label>
+                    <label class="custom-control custom-checkbox">
+                        <input type="radio" class="custom-control-input" value="100,200,{{catg}}" name="Prize"
+                            onchange="filt()">
+                        <div class="custom-control-label">price between 100-200
+                        </div>
+                    </label>
+                    <label class="custom-control custom-checkbox">
+                        <input type="radio" class="custom-control-input" value="200,300,{{catg}}" name="Prize"
+                            onchange="filt()">
+                        <div class="custom-control-label">price between 200-300
+                        </div>
+                    </label>
+
+
+                    <label class="custom-control custom-checkbox">
+                        <input type="radio" class="custom-control-input" name="Prize" value="400000" hidden checked>
+
+                    </label>
+
+
+
+
+                </form>
+            </div>
+            <!-- Price End -->
+
+            <!-- Color Start -->
+
+
+            <!-- Color End -->
+
+            <!-- Size Start -->
+
+
+            <!-- Size End -->
+        </div>
+        <!-- Shop Sidebar End -->
+
+
+        <!-- Shop Product Start -->
+        <div class="col-lg-9 col-md-8">
+            <div class="row pb-3">
+
+
+                <div class="row" id="p">
+                    {{#each product}}
+                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1 card" style="border: none;">
+
+                        <div class="product-item  mb-4 card-wrapper">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="/productimage/{{this.img.[0]}}" alt="">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" onclick="addtocart('{{this._id}}')"><i
+                                            class="fa fa-shopping-cart"></i></a>
+
+                                </div>
+                            </div>
+
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate"
+                                    href="/productdetails/{{this._id}}">{{this.name}}</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h5>RS{{this.ofprice}}</h5>
+                                    <h6 class="text-muted ml-2"><del>rs{{this.price}}</del></h6>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <small class="fa fa-star text-primary mr-1"></small>
+                                    <small class="fa fa-star text-primary mr-1"></small>
+                                    <small class="fa fa-star text-primary mr-1"></small>
+                                    <small class="fa fa-star text-primary mr-1"></small>
+                                    <small class="fa fa-star text-primary mr-1"></small>
+                                    <small>(99)</small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    {{/each}}
+                </div>
+                 <div class="col-12" >
+                        <nav>
+                            <ul class="pagination justify-content-center" id="pagination">
+
+                               
+                               
+
+                            </ul>
+                        </nav>
+                    </div>
+                
+
+
+
+
+
+
+
+            </div>
+        </div>
+        <!-- Shop Product End -->
+    </div>
+
+</div>
+<!-- Shop End -->
+
+
+
+
+</div>
+<div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+    <div class="row px-xl-5 pt-5">
+        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+            <p class="mb-4">feel free to contact in case of emergency...</p>
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, Kerala, India</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>Shopmart@gmail.com</p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+0484 2255</p>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-secondary mb-2" href="/"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                        <a class="text-secondary mb-2" href="/cart"><i class="fa fa-angle-right mr-2"></i>Shopping
+                            Cart</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-secondary mb-2" href="/setings"><i class="fa fa-angle-right mr-2"></i>Setings</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+
+
+                    <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
+                    <div class="d-flex">
+                        <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Footer End -->
+<script>
+    $(document).ready(function () {
+        let pages = document.getElementById('pagination')
+        console.log(pages)
+        for(i=1;i<={{pages}};i++){
+        pages.innerHTML += ` <li class="page-item "><a class="page-link" onclick="pagination(${i},'{{catg}}')"
+                                        style="cursor: pointer;">${i}</a></li>`
+        }
+    });
+
+    function filt() {
+        let value = document.querySelector('input[name="Prize"]:checked').value;
+
+        console.log(typeof (value))
+        let price = value.split(",")
+        let lt = parseInt(price[0])
+        let gt = parseInt(price[1])
+        let catg = price[2]
+        console.log(lt)
+        console.log(gt)
+        $.ajax({
+            url: '/filter',
+            data: {
+                lt: lt,
+                gt: gt,
+                catg: catg
+            },
+            method: 'get',
+            success: (respose) => {
+                console.log(respose)
+                console.log(respose.product)
+                document.getElementById('p').innerHTML = respose
+                document.getElementById('pagination').classList.add('d-none')
+                
+
+            }
+
+
+
+        })
+
+
+    }
+    function pagination(e, c) {
+
+        console.log(e)
+        let page = e
+        let catg = c
+        $.ajax({
+            url: '/pagination',
+            data: {
+                page: page,
+                catg: catg
+
+            },
+            method: 'post',
+            success: (respose) => {
+                console.log(respose)
+                document.getElementById('p').innerHTML = respose
+
+            }
+        })
+    }
+
+
+</script>
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+

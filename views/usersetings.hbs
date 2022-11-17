@@ -1,0 +1,212 @@
+<div class="container light-style flex-grow-1 container-p-y">
+
+  <h4 class="font-weight-bold py-3 mb-4">
+    Account settings
+  </h4>
+
+  <div class="card overflow-hidden">
+    <div class="row no-gutters row-bordered row-border-light">
+      <div class="col-md-3 pt-0">
+        <div class="list-group list-group-flush account-settings-links">
+          <a class="list-group-item list-group-item-action active" data-toggle="list"
+            href="#account-general">General</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list"
+            href="#account-change-password">Address</a>
+
+
+
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="tab-content">
+          <div class="tab-pane fade active show" id="account-general">
+            {{#if limit}}
+            <label style="color: red;">address limit exceeds</label>
+            {{/if}}
+
+
+            <hr class="border-light m-0">
+
+            <div class="card-body">
+              {{#each userdata}}
+              <span class="text-dark">USER DETAILS</span>
+              <div class="row mt-5 align-items-center">
+
+                <div class="col">
+                  <div class="row align-items-center">
+                    <div class="col-md-7">
+                      <h4 class="mb-1">{{this.name}}</h4>
+
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col-md-7">
+                      <p class="text-muted">
+                        {{this.email}}
+
+                      </p>
+                      <p class="text-muted">
+                        {{this.phone}}
+                      </p>
+                    </div>
+                    <div class="col">
+                      <p> <a href="/useredit/{{this._id}}" style="color: black;">edit</a>
+                      <p>
+                      <p><a href="/changepass/{{this._id}}" style="color: black;">change password</a></p>
+
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col-md-7">
+                      <p class="text-muted">
+                        Walet
+
+                      </p>
+                      <p class="text-muted">
+                        Balance:{{walet.balance}}
+                      </p>
+                    </div>
+
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col-md-7">
+                      <input type="text" value="{{this.referal}}" id="myInput">
+
+
+                      <button class="btn-primary" onclick="myFunction()">Copy </button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+
+              <div class="card-body pb-2">
+                <div class=" mt-4 table-responsive " id="transaction_table">
+                  <table class="table">
+                    <thead class="">
+                      <tr>
+
+                        <th scope="col">Date & Time</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Transaction</th>
+
+
+                      </tr>
+                    </thead>
+                    {{#each walet}}
+                    <tbody>
+
+                      <tr>
+
+
+                        <td>{{this.date}}</td>
+                        <td class="text-dark">{{this.message}}</td>
+                        {{#if debit}}
+                        <td class="text-danger">{{this.amount}}</td>
+                        {{else}}
+                        <td class="text-success">{{this.amount}}</td>
+                        {{/if}}
+
+
+
+                      </tr>
+
+
+                    </tbody>
+                    {{/each}}
+                  </table>
+                </div>
+
+
+
+              </div>
+
+
+
+
+            </div>
+
+          </div>
+          <div class="tab-pane fade" id="account-change-password">
+            <div class="card-body pb-2">
+              <h2 class="h3 mb-4 page-title">Saved Address</h2>
+              <a href="/addadress"><button type="button" class="btn btn-block btn-light  font-weight-bold py-3">Add new
+                  Billing Address </button></a>
+
+              {{#each ad}}
+              <div class="form-row">
+                <div class="col-md-6">
+                  <p>{{this.name}}
+                    <br>
+                    {{this.email}}
+                    <br>
+                    {{this.phone}}
+                    <br>
+                    {{this.add}}
+                    <br>
+                    {{this.city}}
+                    <br>
+                    {{this.state}}
+                  </p>
+
+
+
+                </div>
+                <div class="col-md-6">
+                  <div class="col">
+                    <a class="p-3" href="/edit/add/{{this._id}}" style="color: black;">edit</a>
+
+
+                    <a onclick="remove('{{this._id}}')"
+                      class="text-dark">Remove</a>
+
+                  </div>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+    <script>
+
+      function myFunction() {
+        // Get the text field
+        var copyText = document.getElementById("myInput");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        // Alert the copied text
+
+      }
+      function remove(id){
+     
+        swal({
+  title: "Are you sure to remove the address",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+ location.href=href="/address/delete/"+id
+  
+  } 
+});
+    }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>

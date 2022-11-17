@@ -1,0 +1,114 @@
+ <div class="container">
+ <form method="post" action="/changepass" >
+ <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputPassword4">Old Password</label>
+                            <input type="password" name="oldpass" class="form-control" id="userpass" onkeyup="validatepass1()"  />
+                            <span id="userpass1"></span> 
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword5">New Password</label>
+                            <input type="password" name="newpass" class="form-control" id="newpas1" onkeyup="validatepass2()"  />
+                            <span id="paser2"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword6">Confirm Password</label>
+                            <input type="password" class="form-control" id="newpas2"/ onkeyup="check()" >
+                            <span id="paser"></span> 
+                            {{#if er}}
+                            <label class="text-danger" >cannot use old password</label>
+                            {{/if}}
+                            {{#if er1}}
+                            <label class="text-danger">inciorrect password</label>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                       <input type="text" value="{{userid}}" name="_id" hidden >
+                    </div>
+                </div>
+                <button type="submit" onclick="return validateform()" class="btn btn-primary">Save Change</button>
+            
+        </div>
+        </form>
+        </div>
+        <script>
+            function check(){
+                 let userpass = document.getElementById('newpas1').value
+                let userpass2 = document.getElementById('newpas2').value
+                let er = document.getElementById('paser')
+                if(userpass==userpass2){
+                    er.innerHTML = ""
+                    return true
+                }
+                else{
+                    er.style.color = 'red'
+                    er.innerHTML = "password not matched"
+                    console.log('hii')
+                    return false
+                }
+
+            }
+            function validateform(){
+                let userpass = document.getElementById('newpas1').value
+                let userpass2 = document.getElementById('newpas2').value
+                let er = document.getElementById('paser').value
+                console.log(userpass)
+              
+                if(validatepass1()&&validatepass2()){
+                    return true
+                
+
+                }
+                else{
+                  
+                     validatepass1()
+                    validatepass2()
+                    check()
+                   
+                    return false
+
+                }
+            }
+             function validatepass1(){
+      let userpass = document.getElementById('userpass').value
+      let passerror = document.getElementById('userpass1')
+      
+      if(userpass.length<4){
+        passerror.style.color ='red'
+        passerror.innerHTML = "enter min 4 character"
+        return false
+      }
+      else{
+        passerror.innerHTML = ""
+        return true
+      }
+    }
+     function validatepass2(){
+      let userpass = document.getElementById('newpas1').value
+      let passerror = document.getElementById('paser2')
+      if(userpass.length<4){
+        passerror.style.color ='red'
+        passerror.innerHTML = "enter min 4 character"
+        return false
+      }
+      else{
+        passerror.innerHTML = ""
+        return true
+      }
+    }
+    
+
+        </script>
+           <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>

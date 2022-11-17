@@ -1,0 +1,11 @@
+
+    {{#if data}}
+    {{#each data}}
+   <a style="color: black;" href="/productdetails/{{this._id}}"><img style="width: 50px;" src="/productimage/{{this.img.[0]}}">  {{this.name}}</a>
+    <br>
+    {{/each}}
+    {{else}}
+    <P>No products found......</P>
+    {{/if}}
+
+

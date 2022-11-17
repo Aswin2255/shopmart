@@ -1,0 +1,14 @@
+module.exports={
+    usercollection:'users',
+    productcollection:'products',
+    admindetails:'admin',
+    catagories:'catg',
+    cart:'cart',
+    order:'order',
+    address:'add',
+    baners:'ban',
+    coupoun:'cpn',
+    cpnaply:'cpnaply',
+    wallet:'wal',
+    return:'ret'
+}

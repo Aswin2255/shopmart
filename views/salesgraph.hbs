@@ -1,0 +1,289 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <body>
+     
+ 
+  
+          
+  <main id="main" class="main">
+
+
+    <div class="pagetitle">
+      <h1>Sales Graph</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+          <li class="breadcrumb-item active">Graph</li>
+        </ol>
+      </nav>
+    </div>
+     <div class="pagetitle">
+   
+
+     
+    </div>
+     <div class="nav nav-tabs  nav-fill  mb-4">
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Daily</a>
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Weekly</a>
+                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Yearly</a>
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-4">Monthly</a>
+                       
+                       
+                    </div>
+     <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-pane-1">
+                          <div class="container">
+                               <div class="card-body" style="background-color: white;" id="graph" >
+                  <h5 class="card-title">Reports <span>/Daily</span></h5>
+
+                  <!-- Line Chart -->
+               <canvas id="line-chart" width="800" height="450"></canvas>
+               <script>
+                            var n = new Chart(document.getElementById("line-chart"), {
+                            type: 'line',
+                            data: {
+                                
+                                labels: [{{#each date}},{{this._id.day}}+'/'+{{this._id.month}}+'/'+{{this._id.year}}{{/each}},],
+                                datasets: [{ 
+                                    data: [{{#each date}},{{this.revenue}}{{/each}}],
+                                    label: "Revenue",
+                                    borderColor: "#3e95cd",
+                                    fill: false
+                                },
+                                ]
+                            },
+                            options: {
+                                title: {
+                                display: true,
+                                text: 'World population per region (in rupes)'
+                                }
+                            }
+                            });
+             </script>
+                                            <!-- End Line Chart -->
+
+                                            </div>
+                            </div>
+                            
+                            </div>
+                        <div class="tab-pane fade " id="tab-pane-2">
+                             <div class="container">
+                               <div class="card-body" style="background-color: white;" id="graph" >
+                  <h5 class="card-title">Reports <span>|Weekly</span></h5>
+
+                  <!-- Line Chart -->
+               <canvas id="line-chart1" width="800" height="450"></canvas>
+               <script>
+                            var n = new Chart(document.getElementById("line-chart1"), {
+                            type: 'line',
+                            data: {
+                                
+                                labels: [{{#each week}},{{this._id}}+'week'{{/each}},],
+                                datasets: [{ 
+                                    data: [{{#each week}},{{this.revenue}}{{/each}}],
+                                    label: "Revenue",
+                                    borderColor: "#3e95cd",
+                                    fill: false
+                                },
+                                ]
+                            },
+                            options: {
+                                title: {
+                                display: true,
+                                text: 'World population per region (in rupes)'
+                                }
+                            }
+                            });
+             </script>
+                                            <!-- End Line Chart -->
+
+                                            </div>
+                            </div>
+                            
+                          </div>
+                        <div class="tab-pane fade" id="tab-pane-3">
+                             <div class="container">
+                               <div class="card-body" style="background-color: white;" id="graph" >
+                  <h5 class="card-title">Reports <span>|Yearly</span></h5>
+
+                  <!-- Line Chart -->
+               <canvas id="line-chart2" width="800" height="450"  ></canvas>
+               <script>
+                            var n = new Chart(document.getElementById("line-chart2"), {
+                            type: 'line',
+                            data: {
+                                
+                                labels: [{{#each yearly}},{{this._id}}{{/each}},],
+                                datasets: [{ 
+                                    data: [{{#each yearly}},{{this.revenue}}{{/each}}],
+                                    label: "Revenue",
+                                    borderColor: "#3e95cd",
+                                    fill: false
+                                },
+                                ]
+                            },
+                            options: {
+                                title: {
+                                display: true,
+                                text: 'World population per region (in rupes)'
+                                }
+                            }
+                            });
+             </script>
+                                            <!-- End Line Chart -->
+
+                                            </div>
+                            </div>
+                            
+                        </div>
+                          <div class="tab-pane fade " id="tab-pane-4">
+                             <div class="container">
+                               <div class="card-body" style="background-color: white;" id="graph" >
+                  <h5 class="card-title">Reports <span>|Monthly</span></h5>
+
+                  <!-- Line Chart -->
+               <canvas id="line-chart4" width="800" height="450"></canvas>
+               <script>
+                            var n = new Chart(document.getElementById("line-chart4"), {
+                            type: 'line',
+                            data: {
+                                
+                                labels: [{{#each monthly}},{{this._id}}{{/each}},],
+                                datasets: [{ 
+                                    data: [{{#each monthly}},{{this.revenue}}{{/each}}],
+                                    label: "Revenue",
+                                    borderColor: "#3e95cd",
+                                    fill: false
+                                },
+                                ]
+                            },
+                            options: {
+                                title: {
+                                display: true,
+                                text: 'World population per region (in rupes)'
+                                }
+                            }
+                            });
+             </script>
+                                            <!-- End Line Chart -->
+
+                                            </div>
+                            </div>
+                            
+                          </div>
+                    </div>
+<script>
+    $(document).ready(function () {
+    var t = $('#dtBasicExample').DataTable( {
+        "columnDefs": [ {
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        } ],
+        "order": [[ 1, 'asc' ]]
+    } );
+ 
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+
+  var t = $('#dtBasicExample1').DataTable( {
+        "columnDefs": [ {
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        } ],
+        "order": [[ 1, 'asc' ]]
+    } );
+ 
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+});
+</script>
+
+
+
+
+
+
+
+   
+       
+
+
+      
+     
+    </section>
+
+  </main><!-- End #main -->
+    
+   
+        
+     </body>
+     <script>
+          
+    function sub(id){
+      let er = document.getElementById('er'+id)
+      let discount = document.getElementById('d'+id).value
+      if(parseInt(discount)<10||parseInt(discount)>90||discount==""){
+        er.innerHTML = "only value 10-90 allowed"
+        return false
+        er.innerHTML = ""
+      }
+      else{
+     
+        $.ajax({
+        url:'/admin/proofer',
+        method:'post',
+        data:{
+          proid:id,
+          ofer:discount
+        }
+        })
+        
+     return true
+      }
+    }
+
+     </script>
+  
+      
+    
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+ 
+  
+          
+  </body>
+  <script>
+    </script>   
+        <!-- Optional JavaScript; choose one of the two! -->
+
+
+  <!-- Template Main JS File -->
+  <script src="/stylesheets/assets/js/main.js"></script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+ 
+
+
+
+

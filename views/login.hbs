@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+     
+    
+  </head>
+  <body>
+       <section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="img-fluid" alt="Phone image">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 mt-4 ">
+        <form  method="post" >
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="useremail" placeholder="enter the email" name="email" class="form-control form-control-lg" onkeyup="validatemail()"  >
+             <span id="useremail1"></span>
+            
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+             <input type="password" id="userpass" class="form-control" name="pass"   placeholder=" enter your password" onkeyup="validatepass()"/>
+                      <span id="userpass1"></span>
+                      
+                
+          </div>
+           
+
+            
+          <div class="d-flex justify-content-around align-items-center mb-4">
+            <!-- Checkbox -->
+            <div class="form-check">
+              
+             {{#if error}}
+              <label class="text-danger mt-2 ">no user found </label>
+              {{else if error2}}
+                      <label class="text-danger mt-2 "> invalid credentials </label>
+                      {{else if error3}}
+                      <label class="text-danger mt-2 ">  user is blocked </label>
+              {{/if}}
+             
+            </div>
+           
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-secondary btn-lg btn-block text-white " onclick="return validateform()"  href="#" >Log in</button>
+
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+            </div>
+         
+            </form>
+             <button type="submit" class="btn btn-secondary btn-lg btn-block text-white "  onclick="phoneno()"  >Log in with otp</button>
+             
+          
+         
+
+        
+          <p class="text-center text-muted mt-5 mb-0">Create an account? <a href="/signup" class="fw-bold text-body"><u>Signup</u></a></p>
+                   
+          
+
+        
+      </div>
+    </div>
+  </div>
+  
+</section>
+<script>
+  function phoneno(){
+    document.location.href="/otplogin"
+  }
+   function validatemail(){ 
+    
+      var format = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      let useremail = document.getElementById('useremail').value
+      let emailerror = document.getElementById('useremail1')
+      console.log(format.test(useremail))
+      if(format.test(useremail)==false){
+        emailerror.style.color = 'red'
+        emailerror.innerHTML = "enter valid email"
+        return false
+      }
+      else{
+        emailerror.innerHTML = ""
+        return true
+      }
+    }
+     function validatepass(){
+      let userpass = document.getElementById('userpass').value
+      let passerror = document.getElementById('userpass1')
+      if(userpass.length<4){
+        passerror.style.color ='red'
+        passerror.innerHTML = "enter min 4 character"
+        return false
+      }
+      else{
+        passerror.innerHTML = ""
+        return true
+      }
+    }
+     function validateform(){
+      if(validatemail()&&validatepass()){
+        let email = document.getElementById('useremail').value     
+        let pass = document.getElementById('userpass').value                     
+         $.ajax({
+        url:'/login',
+        method:'post',
+        data:{
+          email:email,
+          pass:pass
+        },
+        success:(response)=>{
+          window.history.back()
+        }
+        })
+        
+        return true
+      }
+      else{
+        validatemail()
+        validatepass()
+        return false   
+           }
+    }
+</script>
+ 
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
+

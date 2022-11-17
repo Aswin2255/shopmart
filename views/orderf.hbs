@@ -1,0 +1,31 @@
+   <table id="dtBasicExample1" class="table  table-bordered table-sm p-5" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                 <th></th>
+                 <th class="th-sm" scope="col">Date</th>
+                              <th class="th-sm" scope="col">delivered products</th>
+                              <th  class="th-sm" scope="col">Total sales amount</th>
+              </tr>
+            </thead>
+            <tbody>
+                {{#if data}}
+             
+              <tr>
+                    <td>1</td>
+                    <td class="tm-product-name">{{from}} - {{to}}</td>
+                     {{#each data}}
+                                 <td class="tm-product-name">{{this.products}}</td>
+                                 <td class="tm-product-name">{{this.revenue}}</td>
+                       {{/each}}           
+
+              </tr>
+              {{else}}
+              <h1>no orders...</h1>
+              {{/if}}
+             
+
+
+            </tbody>
+            
+
+          </table>
