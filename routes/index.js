@@ -178,10 +178,13 @@ router.get('/delete/add/:id',addresscontroller.deleteaddress2)
 //------------------------------------ editing address ----------------------------------------------------------------------------------//
 
 router.get('/edit/add/:id', verifylogin,addresscontroller.editaddresspage)
+router.get('/edit/add1/:id', verifylogin,addresscontroller.editaddresspage1)
+
 
 //-------------------------------------- editi address (post request) -------------------------------------------------------------------//
 
 router.post('/editadress/:id',addresscontroller.editaddress)
+router.post('/editadress1/:id',addresscontroller.editaddress1)
 
 //--------------------------------------- user details editingpage rendering ----------------------------------------------------------------//
 

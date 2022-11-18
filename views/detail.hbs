@@ -1,8 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.4.0.min.js" 
-        integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" 
-        crossorigin="anonymous">
-</script>
-<script src="/javascripts/jquery-1.8.3.min.js" ></script>
+
 
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
@@ -56,7 +52,10 @@
                         </div>
                         <small class="pt-1">(99 Reviews)</small>
                     </div>
-                      <h3>RS{{prodetails.ofprice}}</h5><h6 class="text-muted ml-2"><del>rs{{prodetails.price}}</del></h3>
+                      <h3>RS{{prodetails.ofprice}}</h3>
+                      {{#if offerper}}
+                                            <h6 class="text-muted ml-2"><del>RS {{this.price}}</del></h6>
+                                            {{/if}}
                   
                     <p class="mb-4">{{prodetails.discription}}</p>
                    
@@ -125,9 +124,15 @@
        
     </div>
     <!-- Footer End -->
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" 
+        integrity="sha384-JUMjoW8OzDJw4oFpWIB2Bu/c6768ObEthBMVSiIx4ruBIEdyNSUQAjJNFqT5pnJ6" 
+        crossorigin="anonymous">
+</script>
+<script src="/javascripts/jquery-1.8.3.min.js" ></script>
        
        
        <script>
+        
         
          $('#zoom').imagezoomsl({zoomType: 'inner',cursor:'crosshair'});
             $('#zoom1').imagezoomsl({zoomType: 'inner',cursor:'crosshair'});
@@ -136,7 +141,7 @@
        </script>
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    
 
 
     <!-- JavaScript Libraries -->
@@ -148,8 +153,7 @@
   
     
 
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+  
    
    
     <!-- Template Javascript -->

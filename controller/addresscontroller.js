@@ -14,10 +14,10 @@ exports.addadresspage =  async (req, res) => {
 exports.addadress = (req, res) => {
 
     prohelpers.addadress(req.body, req.session.user._id).then((response) => {
-      res.redirect('/setings')
+      res.redirect('/checkout')
     }).catch((er) => {
       req.session.limit = true
-      res.redirect('/setings')
+      res.redirect('/checkout')
     })
   }
  
@@ -55,10 +55,29 @@ exports.editaddresspage =  async (req, res) => {
     })
   
   }
+  exports.editaddresspage1 =  async (req, res) => {
+    let adid = req.params.id
+    let count = await prohelpers.countcart(req.session.user._id)
+    prohelpers.getadd(adid).then((response) => {
+      let add = response
+      console.log(add)
+      res.render('editadress1', { userpage: true, user: req.session.user, count, add })
+  
+    })
+  
+  }
 
   /*---------------------------------------editing the address (post req)--------------------------------------------------------------*/
 
   exports.editaddress = (req, res) => {
+    console.log(req.body)
+    let adid = req.params.id
+    prohelpers.editadd(req.body, adid).then((response) => {
+      res.redirect('/checkout')
+    })
+  
+  }
+  exports.editaddress1 = (req, res) => {
     console.log(req.body)
     let adid = req.params.id
     prohelpers.editadd(req.body, adid).then((response) => {

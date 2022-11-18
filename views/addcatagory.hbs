@@ -123,7 +123,11 @@
     </div>
   </div>
 </div>
+{{#if catgoffer}}
   <td><a href="/admin/delofr/{{this.catg}}"><i style="color: black;" class="fa-solid fa-ban" onclick="return confirm('are you wanted to remove offer!')" ></i></a></td>
+{{else}}
+<td></td>
+{{/if}}
    <td><a href="/admin/delcatg/{{this._id}}"><i style="color: black;"class="fa-sharp fa-solid fa-trash" onclick="return confirm('are you sure to delete{{this.name}}')"></i></a></td>
 
                           {{/each}}

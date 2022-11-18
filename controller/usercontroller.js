@@ -12,11 +12,11 @@ let userstoreddata = {}
 
 exports.indexpage = async (req, res) => {
     try {
-        console.log(process.env)
+        
         let user = req.session.user
         let logedin = req.session.logedin
         let baner = await prohelpers.getbaners()
-        let banl = baner[0].imgar.length
+        let banl = await prohelpers.checkban()
         let allproducts = await prohelpers.getallproducts()
         let count = null
         if (req.session.user) {
@@ -95,21 +95,21 @@ exports.loginuser = async (req, res) => {
             if (response.status) {
                 req.session.logedin = true
                 req.session.user = response.user
-                res.redirect('/')
+                res.json(response)
             }
             else if (response.block) {
                 req.session.blockerror = true
-                res.redirect('/login')
+                res.json(response)
             }
             else {
                 req.session.passerror = true
-                res.redirect('/login')
+                res.json(response)
             }
 
         }).catch((response) => {
             console.log(response)
             req.session.logerror = true
-            res.redirect('/login')
+            res.json(response)
         })
 
     } catch (err) {

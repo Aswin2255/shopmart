@@ -60,6 +60,7 @@ module.exports={
         let response = {}
         return new Promise(async(resolve, reject) => {
             let user = await db.get().collection(collection.usercollection).findOne({email:userdata.email})
+            console.log(user)
             
             if(user){
                 let userstat = user.userstatus
@@ -75,11 +76,13 @@ module.exports={
                     else{
                         
                         console.log("failed")
-                        resolve({status:false})
+                        response.status = false
+                        resolve(response)
                     }
                 })
                 }
                 else{
+                    console.log('failed')
                     response.block = true
                     resolve(response)
                 }
@@ -87,6 +90,7 @@ module.exports={
             
             }
             else{
+                response.inv = true
                 reject(response)
             }
         })

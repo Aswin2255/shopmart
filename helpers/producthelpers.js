@@ -1,11 +1,12 @@
-var db = require('../coinfig/connection')
-var collection = require('../coinfig/collection')
+let db = require('../coinfig/connection')
+let collection = require('../coinfig/collection')
 const Razorpay = require('razorpay');
-var paypal = require('paypal-rest-sdk');
+let paypal = require('paypal-rest-sdk');
 const { ObjectId } = require('mongodb')
 const { stringify } = require('ajv')
 const { FlowValidateList } = require('twilio/lib/rest/studio/v2/flowValidate');
 const { resolve } = require('path');
+let fs = require('fs')
 require('dotenv').config()
 var instance = new Razorpay({
     key_id: process.env.KEY_ID,
@@ -25,6 +26,14 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let img = await db.get().collection(collection.baners).find().toArray()
             resolve(img)
+
+        })
+
+    },
+    checkban:()=>{
+        return new Promise(async (resolve, reject) => {
+            let img = await db.get().collection(collection.baners).find().toArray()
+            resolve(img[0].imgar.length)
 
         })
 
@@ -94,6 +103,14 @@ module.exports = {
             await db.get().collection(collection.cart).update({ 'product.item': ObjectId(proid) }, {
                 $pull: { product: { item: ObjectId(proid) } }
             })
+            let prod = await db.get().collection(collection.productcollection).findOne({_id:ObjectId(proid)})
+            let img = prod.img
+            img.forEach(e => {
+                fs.unlinkSync('public/productimage/'+e)
+                
+            });
+          
+            console.log(img)
 
             await db.get().collection(collection.productcollection).deleteOne({ _id: ObjectId(proid) })
             resolve("hii")
@@ -124,6 +141,12 @@ module.exports = {
                         files.forEach(e => {
                             img.push(e.filename)
 
+                        });
+                        let prod = await db.get().collection(collection.productcollection).findOne({_id:ObjectId(proid)})
+                        let image = prod.img
+                        image.forEach(e => {
+                            fs.unlinkSync('public/productimage/'+e)
+                            
                         });
                         if (details.proofer === 'true') {
 
@@ -1133,21 +1156,20 @@ module.exports = {
         })
     },
     addadress: (data, user) => {
-        console.log('hi')
+        let response = {}
         data.user = ObjectId(data.user)
         return new Promise(async (resolve, reject) => {
             let exist = await db.get().collection(collection.address).find({ user: ObjectId(user) }).toArray()
             if (exist.length < 3) {
 
 
-
-                db.get().collection(collection.address).insertOne(data).then((response) => {
-                    let inserted = true
-                    resolve(inserted)
-                })
+              await db.get().collection(collection.address).insertOne(data)
+                response.status = true
+                resolve(response)
             }
             else {
-                reject(false)
+                response.status = false
+                reject(response)
             }
 
 

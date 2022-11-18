@@ -1,7 +1,7 @@
 var db = require('../coinfig/connection')
 var collection = require('../coinfig/collection')
 const { ObjectId } = require('mongodb')
-const puppeteer = require('puppeteer')
+let fs = require('fs')
 module.exports = {
     loginadmin: (userdata) => {
         let loginstatus = false
@@ -605,6 +605,16 @@ module.exports = {
 
     baners: (img) => {
         return new Promise(async (resolve, reject) => {
+            let baner = await db.get().collection(collection.baners).find().toArray()
+            if(baner[0].imgar.length){
+                let bn = baner[0].imgar
+                bn.forEach(e => {
+                    fs.unlinkSync('public/'+e)
+                    
+                });
+
+            }
+           
             let imgar = []
             img.forEach(e => {
                 imgar.push(e.path.slice(7))
@@ -650,6 +660,7 @@ module.exports = {
                     $set: {
                         ofprice: catgoffer,
                         offerper: rate,
+                        
 
                     }
                 })
@@ -782,26 +793,7 @@ module.exports = {
 
         })
     },
-    pdf: async () => {
-        try {
-            const browser = await puppeteer.launch({
-                ignoreDefaultArgs: ['--disable-extensions'],
-            });
-            const page = await browser.newPage();
-            console.log(";wrked")
-            await page.setContent('<p>helowwwwwwww</p>')
-            await page.pdf({
-                path: 'report.pdf',
-                formatt: 'A4',
-                printBackground: true
-            })
-            await browser.close()
-            process.exit()
-        }
-        catch (e) {
-            console.log(e)
-        }
-    },
+   
     aproveret: (details) => {
         let orderid = details.ordid
         let proid = details.proid
@@ -897,6 +889,16 @@ module.exports = {
     },
     delban: () => {
         return new Promise(async (resolve, reject) => {
+            let baner = await db.get().collection(collection.baners).find().toArray()
+            if(baner[0].imgar.length){
+                let bn = baner[0].imgar
+                bn.forEach(e => {
+                    fs.unlinkSync('public/'+e)
+                    
+                });
+
+            }
+            
             await db.get().collection(collection.baners).updateOne({}, {
                 $set: {
                     imgar: []
