@@ -310,7 +310,7 @@ exports.bannercontrol = (req, res) => {
 
 exports.catgoffer = (req, res) => {
     adminhelpers.catgofer(req.body).then((data) => {
-        res.redirect('/admin/addcatg')
+        res.json({status:true})
     })
 }
 
