@@ -61,7 +61,7 @@ router.get('/login', usercontroller.loginpage)
 
 //-------------------------------user login -----------------------------------------------------------------------------------//
 
-router.post('/login', usercontroller.loginuser)
+router.post('/loginn', usercontroller.loginuser)
 
 //-------------------------------user logout ----------------------------------------------------------------------------------//
 
