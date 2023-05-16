@@ -606,14 +606,14 @@ module.exports = {
     baners: (img) => {
         return new Promise(async (resolve, reject) => {
             let baner = await db.get().collection(collection.baners).find().toArray()
-            if(baner[0].imgar.length){
+           /* if(baner[0].imgar.length){
                 let bn = baner[0].imgar
                 bn.forEach(e => {
                     fs.unlinkSync('public/'+e)
                     
                 });
 
-            }
+            }*/
            
             let imgar = []
             img.forEach(e => {
@@ -625,6 +625,7 @@ module.exports = {
                 }
             }, { upsert: true })
             console.log('fini')
+            resolve(true)
 
 
         })
