@@ -1013,8 +1013,8 @@ module.exports = {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    "return_url": "http://localhost:3000/sucess",
-                    "cancel_url": "http://localhost:3000/cancel"
+                    "return_url": "https://shopmart-ecomerse-app.onrender.com/sucess",
+                    "cancel_url": "https://shopmart-ecomerse-app.onrender.com/cancel"
                 },
                 "transactions": [{
                     "item_list": {
