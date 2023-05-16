@@ -302,8 +302,10 @@ exports.bannerpage = async (req, res) => {
 /*----------------managing banners (post request)--------------------------------------------------------------------------------*/
 
 exports.bannercontrol = (req, res) => {
-    adminhelpers.baners(req.files)
-    res.redirect('/admin/banercontrol')
+    adminhelpers.baners(req.files).then((data)=>{
+            res.redirect('/admin/banercontrol')
+    })
+
 }
 
 /*---------------applying catg offer ---------------------------------------------------------------------------------------------*/
